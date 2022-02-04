@@ -13,7 +13,7 @@ public class GamePanel extends JPanel implements Runnable{
 // implementing Runnable interface allows the program to run on a thread
 	
 	static final int GAME_WIDTH = 1000; // this is a constant which will be shared by any instance of the GamePanel
-	static final int GAME_HEIGHT = (int) (GAME_WIDTH*(5/9)); // constants are often declared as static variables. static keyword denote class variables
+	static final int GAME_HEIGHT = (int) (GAME_WIDTH*(0.5555)); // constants are often declared as static variables. static keyword denote class variables
 	static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT);
 	static final int BALL_DIAMETER = 20;
 	static final int PADDLE_WIDTH = 25, PADDLE_HEIGHT = 100;
@@ -27,7 +27,15 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public GamePanel()
 	{
+		newBall();
+		newPaddle();
+		score = new Score(GAME_WIDTH, GAME_HEIGHT);
+		this.setFocusable(true);
+		this.setPreferredSize(SCREEN_SIZE);
+		this.addKeyListener(new AL());
 		
+		gameThread = new Thread(this);
+		gameThread.start();
 	}
 	
 	public void newBall()  // can be used whenever the game is reset
@@ -42,7 +50,10 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void paint(Graphics g)
 	{
-		
+		image = createImage(getWidth(), getHeight());
+		graphics = image.getGraphics();
+		draw(graphics);
+		g.drawImage(image,0,0,this);
 	}
 	
 	public void draw(Graphics g)
@@ -62,7 +73,27 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void run()
 	{
+		// Game Loop
 		
+		long lastTime = System.nanoTime(); // current time in ns
+		double amountOfTicks = 60.0; // frames per second
+		double ns = 1000000000 / amountOfTicks; 
+		double delta = 0;
+		
+		while(true)
+		{
+			long now = System.nanoTime(); // current time in ns
+			delta += (now - lastTime)/ns;
+			lastTime = now;
+			if (delta >= 1)
+			{
+				move();
+				checkCollision();
+				repaint();
+				delta--;
+				//System.out.println("TEST");
+			}
+		}
 	}
 	
 	public class AL extends KeyAdapter  // AL stands for actionlistener
