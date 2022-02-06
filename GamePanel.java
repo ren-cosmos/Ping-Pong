@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 		newBall();
 		newPaddle();
 		score = new Score(GAME_WIDTH, GAME_HEIGHT);
-		this.setFocusable(true);
+		this.setFocusable(true); // reads keypress and keystrokes
 		this.setPreferredSize(SCREEN_SIZE);
 		this.addKeyListener(new AL());
 		
@@ -45,7 +45,9 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void newPaddle()  // can be used whenever the game is reset
 	{
-		
+		paddle1 = new Paddle(0, GAME_HEIGHT/2 - PADDLE_HEIGHT/2, PADDLE_WIDTH, PADDLE_HEIGHT, 1);
+		paddle2 = new Paddle(GAME_WIDTH - PADDLE_WIDTH, GAME_HEIGHT/2 - PADDLE_HEIGHT/2, PADDLE_WIDTH, PADDLE_HEIGHT, 2);
+	
 	}
 	
 	public void paint(Graphics g)
@@ -58,7 +60,8 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void draw(Graphics g)
 	{
-		
+		paddle1.draw(g);
+		paddle2.draw(g);
 	}
 	
 	public void move()
@@ -84,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable{
 		{
 			long now = System.nanoTime(); // current time in ns
 			delta += (now - lastTime)/ns;
-			lastTime = now;
+			lastTime = now;    
 			if (delta >= 1)
 			{
 				move();
