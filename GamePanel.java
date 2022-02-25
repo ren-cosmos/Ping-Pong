@@ -1,5 +1,3 @@
-package pingPongGame;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -9,7 +7,8 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable
+{
 // implementing Runnable interface allows the program to run on a thread
 	
 	static final int GAME_WIDTH = 1000; // this is a constant which will be shared by any instance of the GamePanel
@@ -103,12 +102,29 @@ public class GamePanel extends JPanel implements Runnable{
 	{
 		public void keyPressed(KeyEvent e)
 		{
+			//when a key is pressed, we run keyPressed() methods on 
+			//paddle1 and paddle2.
+			//when keyPressed runs on Paddle1, case 1 of the switch statement
+			//is executed. Here, if w or s is pressed only then paddle1 moves
+			// up or down. otherwise it does not move.
 			
+			//Same is the scenario when keyPressed() runs on Paddle2.
+			paddle1.keyPressed(e);
+			paddle2.keyPressed(e);
 		}
 		
 		public void keyReleased(KeyEvent e)
 		{
+			//when a key is released, we run keyReleased() methods on 
+			//paddle1 and paddle2.
+			//when keyReleased runs on Paddle1, case 1 of the switch statement
+			//is executed. Here, if w or s was pressed, only then paddle1 stops
+			//moving on releasing the key w or s. otherwise, it was initially
+			//not moving and still remains constant.
 			
+			//Same is the scenario when keyReleased() runs on Paddle2.
+			paddle1.keyReleased(e);
+			paddle2.keyReleased(e);
 		}
 
 	}
