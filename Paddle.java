@@ -1,5 +1,3 @@
-package pingPongGame;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -13,6 +11,7 @@ public class Paddle extends Rectangle{
 	
 	int id; // store the player's id (1 or 2)
 	int yVelocity; // defines the velocity of the  vertical movement of the paddle
+	int speed = 10;
 
 	public Paddle(int x, int y, int PADDLE_WIDTH, int PADDLE_HEIGHT, int id)
 	{
@@ -22,22 +21,74 @@ public class Paddle extends Rectangle{
 	
 	public void keyPressed(KeyEvent e)
 	{
-		
+		switch(id)
+		{
+		case 1:
+			if (e.getKeyCode() == KeyEvent.VK_W) // if w is pressed
+			{
+				setYVelocity(-speed);    // paddle moves //
+				move();                  //      UP      //
+			}
+			if (e.getKeyCode() == KeyEvent.VK_S) // if s is pressed
+			{
+				setYVelocity(speed);     // paddle moves //
+				move();                  //     DOWN     //
+			}
+			break;
+		case 2:
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) // if DOWN is pressed
+			{
+				setYVelocity(speed);     // paddle moves //
+				move();                  //    DOWN      // 
+			}
+			if (e.getKeyCode() == KeyEvent.VK_UP) // if UP is pressed
+			{
+				setYVelocity(-speed);   // paddle moves // 
+				move();                 //      UP      //
+			}
+			break;
+		}
 	}
 	
 	public void keyReleased(KeyEvent e)
 	{
-		
+		switch(id)
+		{
+		case 1:
+			if (e.getKeyCode() == KeyEvent.VK_W) // if w is released
+			{
+				setYVelocity(0); // vertical motion //
+				move();          //      stops      //
+			}
+			if (e.getKeyCode() == KeyEvent.VK_S) // if s is released
+			{
+				setYVelocity(0); // vertical motion //
+				move();          //      stops      //
+			}
+			break;
+		case 2:
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) // if  DOWN is released
+			{
+				setYVelocity(0); // vertical motion //
+				move();          //      stops      //
+			}
+			if (e.getKeyCode() == KeyEvent.VK_UP) // if UP is released
+			{
+				setYVelocity(0); // vertical motion //
+				move();          //      stops      //
+			}
+			break;
+		}
 	}
 	
-	public void setYDirection(int y)
+	public void setYVelocity(int y)  // sets yVelocity
 	{
-		
+		yVelocity = y;
 	}
 	
-	public void move()
+	public void move() // moves the paddles vertically
 	{
-		
+		y += yVelocity;
 	}
 	
 	// draw method draws the paddles (blue or red)
@@ -50,4 +101,3 @@ public class Paddle extends Rectangle{
 		g.fillRect(x, y, width, height); // x, y, width, height are the fields of Rectangele Class
 	}
 }
-
