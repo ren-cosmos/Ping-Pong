@@ -7,6 +7,7 @@ public class Ball extends Rectangle{
 	
 	Random random;
 	int xVelocity, yVelocity; // defines the velocity of horizontal and vertical motion respectively
+	int initialSpeed = 2;
 
 	public Ball(int x, int y, int width, int height)
 	{
@@ -16,12 +17,12 @@ public class Ball extends Rectangle{
 		int randomXDirection = random.nextInt(2);
 		if ( randomXDirection == 0)  // ball moves left randomXDir is 0. //
 			randomXDirection--;        //  otherwise, it moves right //
-		setXDirection(randomXDirection);
+		setXVelocity(randomXDirection * initialSpeed);
 		
 		int randomYDirection = random.nextInt(2);
 		if (randomYDirection == 0)   // ball moves down randomYDir is 0. //
 			randomYDirection--;        //  otherwise, it moves down  //
-		setYDirection(randomYDirection);
+		setYVelocity(randomYDirection * initialSpeed);
 	}
 	
 	public void setXVelocity(int x)
