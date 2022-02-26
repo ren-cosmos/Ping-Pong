@@ -39,7 +39,8 @@ public class GamePanel extends JPanel implements Runnable
 	
 	public void newBall()  // can be used whenever the game is reset
 	{
-		
+		//random = new Random();
+		ball = new Ball(GAME_WIDTH/2-BALL_DIAMETER/2, GAME_HEIGHT/2-BALL_DIAMETER/2, BALL_DIAMETER, BALL_DIAMETER);
 	}
 	
 	public void newPaddle()  // can be used whenever the game is reset
@@ -61,15 +62,14 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		paddle1.draw(g);
 		paddle2.draw(g);
+		ball.draw(g);
 	}
 	
 	public void move()
 	{
-		public void move()
-		{
-			paddle1.move();
-			paddle2.move();
-		}
+		paddle1.move();
+		paddle2.move();
+		ball.move();
 	}
 	
 	public void checkCollision() // stops the paddles from beyond of window edges
@@ -104,8 +104,8 @@ public class GamePanel extends JPanel implements Runnable
 			lastTime = now;    
 			if (delta >= 1)
 			{
-				move();
-				checkCollision();
+				move(); // by calling this method within the game loop results in smooth motion of paddles and ball
+				checkCollision(); // restricts the paddles and balls within window edges
 				repaint();
 				delta--;
 				//System.out.println("TEST");
