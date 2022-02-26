@@ -24,12 +24,12 @@ public class Ball extends Rectangle{
 		setYDirection(randomYDirection);
 	}
 	
-	public void setXDirection(int x)
+	public void setXVelocity(int x)
 	{
 		xVelocity = x;
 	}
 	
-	public void setYDirection(int y)
+	public void setYVelocity(int y)
 	{
 		yVelocity = y;
 	}
