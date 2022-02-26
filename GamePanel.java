@@ -65,7 +65,11 @@ public class GamePanel extends JPanel implements Runnable
 	
 	public void move()
 	{
-		
+		public void move()
+		{
+			paddle1.move();
+			paddle2.move();
+		}
 	}
 	
 	public void checkCollision() // stops the paddles from beyond of window edges
