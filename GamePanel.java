@@ -72,9 +72,9 @@ public class GamePanel extends JPanel implements Runnable
 		ball.move();
 	}
 	
-	public void checkCollision() // stops the paddles from beyond of window edges
+	public void checkCollision() 
 	{
-		
+		// stops the paddles from beyond of window edges //
 		if(paddle1.y < 0) // if paddle tries to go beyond the top edge
 			paddle1.y = 0; // bring it back to the top edge.
 		
@@ -86,6 +86,40 @@ public class GamePanel extends JPanel implements Runnable
 		
 		if(paddle2.y > GAME_HEIGHT-PADDLE_HEIGHT)
 			paddle2.y = GAME_HEIGHT - PADDLE_HEIGHT;
+		
+		// Bounces the ball when it touches the edges of the window //
+		if (ball.y < 0)
+			ball.setYVelocity(-ball.yVelocity); 
+		
+		if (ball.y > GAME_HEIGHT-BALL_DIAMETER)
+			ball.setYVelocity(-ball.yVelocity);
+		
+		// Bounces the ball off paddles //
+		if (ball.intersects(paddle2))
+		{
+			ball.xVelocity = -ball.xVelocity;
+			ball.xVelocity++; // increases ball speed each time it hits paddle1
+			if (ball.yVelocity > 0)
+				ball.yVelocity++;
+
+			else
+				ball.yVelocity--;
+			ball.setXVelocity(ball.xVelocity);
+			ball.setYVelocity(ball.yVelocity);
+		}
+		
+		if (ball.intersects(paddle1))
+		{
+			ball.xVelocity = -ball.xVelocity;
+			ball.xVelocity++; // increases ball speed each time it hits paddle1
+			if (ball.yVelocity > 0)
+				ball.yVelocity++;
+
+			else
+				ball.yVelocity--;
+			ball.setXVelocity(ball.xVelocity);
+			ball.setYVelocity(ball.yVelocity);
+		}
 	}
 	
 	public void run()
