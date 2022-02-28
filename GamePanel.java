@@ -39,8 +39,8 @@ public class GamePanel extends JPanel implements Runnable
 	
 	public void newBall()  // can be used whenever the game is reset
 	{
-		//random = new Random();
-		ball = new Ball(GAME_WIDTH/2-BALL_DIAMETER/2, GAME_HEIGHT/2-BALL_DIAMETER/2, BALL_DIAMETER, BALL_DIAMETER);
+		random = new Random();
+		ball = new Ball(GAME_WIDTH/2-BALL_DIAMETER/2, random.nextInt(GAME_HEIGHT-BALL_DIAMETER), BALL_DIAMETER, BALL_DIAMETER);
 	}
 	
 	public void newPaddle()  // can be used whenever the game is reset
@@ -63,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable
 		paddle1.draw(g);
 		paddle2.draw(g);
 		ball.draw(g);
+		score.draw(g);
 	}
 	
 	public void move()
@@ -119,6 +120,23 @@ public class GamePanel extends JPanel implements Runnable
 				ball.yVelocity--;
 			ball.setXVelocity(ball.xVelocity);
 			ball.setYVelocity(ball.yVelocity);
+		}
+		
+		// Awards 1 point to the player and resets the game
+		if (ball.x < 0)
+		{
+			score.player2++;
+			newPaddle();
+			newBall();
+			System.out.println("Player 2: " + score.player2);
+		}
+		
+		if (ball.x > GAME_WIDTH-BALL_DIAMETER)
+		{
+			score.player1++;
+			newPaddle();
+			newBall();
+			System.out.println("Player 1: " + score.player1);
 		}
 	}
 	
